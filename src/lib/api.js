@@ -1,8 +1,8 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const bus = axios.create({
   baseURL: 'https://slsmartapi.step520.com/api/',
-  timeout: 1000,
+  timeout: 3000,
 });
 
 bus.interceptors.response.use(
@@ -15,3 +15,7 @@ bus.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+module.exports = {
+  bus,
+};

@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -r module-alias/register -r esm index.js"
+    "dev": "nodemon index.js"
   },
   "author": "rainkolwa@gmail.com",
-  "type": "module",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",
+    "esm": "^3.2.25",
     "fastify": "^3.24.1",
     "module-alias": "^2.2.2"
   },
@@ -18,5 +18,8 @@
     "@root": ".",
     "@lib": "./src/lib",
     "@service": "./src/service"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
