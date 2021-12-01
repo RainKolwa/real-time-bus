@@ -18,7 +18,7 @@ jobs:
         with:
           command: |
             cd /var/www/
-            echo "print repo: $GITHUB_REPOSITORY";
+            echo "print repo: ${{ env.PROJECT_NAME }} - ${{ github.repository_owner }} -- ${{ github.event.repository.name }}";
             if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:$GITHUB_REPOSITORY.git ${{ env.PROJECT_NAME }}; fi
             cd ${{ env.PROJECT_NAME }};
             git pull origin master;
