@@ -1,4 +1,5 @@
 require('module-alias/register');
+// const fs = require('fs');
 const Fastify = require('fastify');
 
 const fastify = Fastify({
