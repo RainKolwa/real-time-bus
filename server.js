@@ -1,12 +1,8 @@
 require('module-alias/register');
-// const fs = require('fs');
+require('dotenv').config();
 const Fastify = require('fastify');
 
 const fastify = Fastify({
-  // https: {
-  //   key: fs.readFileSync(path.join(__dirname, '../test/https/fastify.key')),
-  //   cert: fs.readFileSync(path.join(__dirname, '../test/https/fastify.cert')),
-  // },
   logger: true,
 });
 

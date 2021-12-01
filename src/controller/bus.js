@@ -10,17 +10,22 @@ const getLineStatus = async (request, reply) => {
   return res;
 };
 
-const hook = async (request, reply) => {
-  //
+const hook = async (request) => {
   request.log.info('received hook');
   request.log.info(request.body);
-  request.log.info(JSON.stringify(request.params));
-  request.log.info(JSON.stringify(request.query));
-  request.log.info(JSON.stringify(request.body));
   const { token } = request.params;
   // validate token
-
-  return { hello: 'rainkolwa', requestBody: request.body };
+  const {
+    message: { entities, text, chat },
+  } = request.body;
+  if (entities[0]?.type === 'bot_command') {
+    // bot command
+    if (token !== process.env.ROBOT_TOKEN) {
+      return { code: -1, message: 'invalid token' };
+    }
+    service.handleBotCommand(text, chat.id);
+  }
+  return { code: 0 };
 };
 
 module.exports = {
