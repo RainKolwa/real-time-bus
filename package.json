@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon server.js"
   },
   "author": "rainkolwa@gmail.com",
   "license": "ISC",
@@ -16,7 +16,9 @@
   },
   "_moduleAliases": {
     "@root": ".",
+    "@routes": "./src/routes",
     "@lib": "./src/lib",
+    "@controller": "./src/controller",
     "@service": "./src/service"
   },
   "devDependencies": {
