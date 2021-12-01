@@ -18,13 +18,13 @@ const hook = async (request) => {
   const {
     message: { entities, text, chat },
   } = request.body;
-  if (entities[0] && entities[0].type === 'bot_command') {
-    // bot command
-    if (token !== process.env.ROBOT_TOKEN) {
-      return { code: -1, message: 'invalid token' };
-    }
-    service.handleBotCommand(text, chat.id);
+  // if (entities[0] && entities[0].type === 'bot_command') {
+  // bot command
+  if (token !== process.env.ROBOT_TOKEN) {
+    return { code: -1, message: 'invalid token' };
   }
+  service.handleBotCommand(text, chat.id);
+  // }
   return { code: 0 };
 };
 
