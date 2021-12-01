@@ -13,13 +13,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Deploy
         env:
-          PROJECT_NAME: bus-sanlin-node
+          PROJECT_NAME: ${{ github.event.repository.name }}
         uses: fifsky/ssh-action@master
         with:
           command: |
             cd /var/www/
-            echo "print repo: ${{ env.PROJECT_NAME }} - ${{ github.repository_owner }} -- ${{ github.event.repository.name }}";
-            if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:$GITHUB_REPOSITORY.git ${{ env.PROJECT_NAME }}; fi
+            echo "print repo: ${{ github.repository }} - ${{ github.repository_owner }} -- ${{ github.event.repository.name }} --- $PROJECT_NAME";
+            if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:${{ github.repository }}.git ${{ env.PROJECT_NAME }}; fi
             cd ${{ env.PROJECT_NAME }};
             git pull origin master;
             export NVM_DIR="$HOME/.nvm"
