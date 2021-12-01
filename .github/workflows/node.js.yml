@@ -1,11 +1,5 @@
 name: Node.js CI
 
-variables:
-  - name: project
-    value: bus-sanlin-node
-  - name: repo
-    value: git@github.com:RainKolwa/bus-sanlin-node.git
-
 on:
   push:
     branches: [master]
@@ -18,12 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy
+        env:
+          PROJECT_NAME: bus-sanlin-node
         uses: fifsky/ssh-action@master
         with:
           command: |
             cd /var/www/
-            if cd ${{ variables.project }}; then git pull; else git clone ${{ variables.repo}} ${{ variables.project }}; fi
-            cd ${{ variables.project }}
+            if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:$GITHUB_REPOSITORY ${{ env.PROJECT_NAME }}; fi
+            cd ${{ env.PROJECT_NAME }}
             git pull origin master
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
