@@ -5,7 +5,7 @@ module.exports = function (fastify, opts, done) {
 
   fastify.get('/bus/:line', bus.getLineStatus);
 
-  fastify.post('/bus_hook', bus.hook);
+  fastify.post('/bus_hook/:token', bus.hook);
 
   done();
 };

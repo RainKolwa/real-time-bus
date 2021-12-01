@@ -13,8 +13,14 @@ const getLineStatus = async (request, reply) => {
 const hook = async (request, reply) => {
   //
   request.log.info('received hook');
-  request.log.info(request);
-  return { hello: 'rainkolwa' };
+  request.log.info(request.body);
+  request.log.info(JSON.stringify(request.params));
+  request.log.info(JSON.stringify(request.query));
+  request.log.info(JSON.stringify(request.body));
+  const { token } = request.params;
+  // validate token
+
+  return { hello: 'rainkolwa', requestBody: request.body };
 };
 
 module.exports = {
