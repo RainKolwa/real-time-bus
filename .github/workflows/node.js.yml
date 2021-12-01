@@ -18,8 +18,8 @@ jobs:
         with:
           command: |
             cd /var/www/
-            echo ${GITHUB_REPOSITORY};
-            if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:${GITHUB_REPOSITORY}.git ${{ env.PROJECT_NAME }}; fi
+            echo "${GITHUB_REPOSITORY}";
+            if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:"${GITHUB_REPOSITORY}".git ${{ env.PROJECT_NAME }}; fi
             cd ${{ env.PROJECT_NAME }};
             git pull origin master;
             export NVM_DIR="$HOME/.nvm"
