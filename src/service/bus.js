@@ -34,23 +34,24 @@ const getLineStatus = (line) => {
 };
 
 const handleBotCommand = (text, chatId) => {
-  switch (text) {
-    case '/bus':
-      bot.sendMsg('hohohohaha', chatId);
-      break;
-    case '/bus/11':
-      getLineStatus(11).then((result) => {
-        if (result && result.length > 0) {
-          let routes = result.map(
-            ({ recentBusTimes, numberCar }) =>
-              `车牌：${numberCar}, 发车时间：${recentBusTimes}`
-          );
-          bot.sendMsg(routes.join('\n'), chatId);
-        } else {
-          bot.sendMsg('没有查到信息', chatId);
-        }
-      });
-      break;
+  if (/^\/bus/.test(text)) {
+    // bus command
+    let lineNo = text.slice(4);
+    if (!lineNo) {
+      return;
+    }
+    getLineStatus(lineNo).then((result) => {
+      if (result && result.length > 0) {
+        let routes = result.map(
+          ({ recentBusTimes, numberCar }) =>
+            `车牌：${numberCar}, 发车时间：${recentBusTimes}`
+        );
+        let name = routes[0].name;
+        bot.sendMsg(`*${name}*\n` + routes.join('\n'), chatId);
+      } else {
+        bot.sendMsg('没有查到信息', chatId);
+      }
+    });
   }
 };
 

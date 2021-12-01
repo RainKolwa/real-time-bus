@@ -20,11 +20,7 @@ const sendMsg = (text, chatId) => {
     })
     .then((res) => console.log(res.data))
     .catch((err) => {
-      if (err.response.status >= 400) {
-        throw new Error(err.response.data.description);
-      } else {
-        throw err;
-      }
+      throw err;
     });
 };
 
