@@ -12,7 +12,8 @@ const getLineStatus = async (request, reply) => {
 
 const hook = async (request, reply) => {
   //
-  request.log.info('Some info about the current request');
+  request.log.info('received hook');
+  request.log.info(request);
   return { hello: 'rainkolwa' };
 };
 
