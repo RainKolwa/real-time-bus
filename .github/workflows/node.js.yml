@@ -1,5 +1,11 @@
 name: Node.js CI
 
+variables:
+  - name: project
+    value: bus-sanlin-node
+  - name: repo
+    value: git@github.com:RainKolwa/bus-sanlin-node.git
+
 on:
   push:
     branches: [master]
@@ -8,12 +14,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     environment: prod
-
-    variables:
-      - name: project
-        value: bus-sanlin-node
-      - name: repo
-        value: git@github.com:RainKolwa/bus-sanlin-node.git
 
     steps:
       - uses: actions/checkout@v2
