@@ -1,31 +1,35 @@
-# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    environment: prod
 
-    strategy:
-      matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    variables:
+      - name: project
+        value: bus-sanlin-node
+      - name: repo
+        value: git@github.com:RainKolwa/bus-sanlin-node.git
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v2
+      - name: Deploy
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /var/www/
+            if cd ${{ variables.project }}; then git pull; else git clone ${{ variables.repo}} ${{ variables.project }}; fi
+            cd ${{ variables.project }}
+            git pull origin master
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            npm i --production
+            npm run stop
+            npm start
+          host: ${{ secrets.HOST }}
+          user: root
+          key: ${{ secrets.KEY }}
