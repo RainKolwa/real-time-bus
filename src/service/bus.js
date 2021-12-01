@@ -46,7 +46,7 @@ const handleBotCommand = (text, chatId) => {
           ({ recentBusTimes, numberCar }) =>
             `车牌：${numberCar}, 发车时间：${recentBusTimes}`
         );
-        let name = routes[0].name;
+        let name = result[0].name;
         bot.sendMsg(`*${name}*\n` + routes.join('\n'), chatId);
       } else {
         bot.sendMsg('没有查到信息', chatId);
