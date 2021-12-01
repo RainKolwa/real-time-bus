@@ -7,7 +7,7 @@ const { bus } = api;
  * @returns []
  */
 const getStatus = () =>
-  bus.get('BusH5New/BusStatus').then((res) => res.data ?? []);
+  bus.get('BusH5New/BusStatus').then((res) => res.data || []);
 
 /**
  * 获取指定线路班次
