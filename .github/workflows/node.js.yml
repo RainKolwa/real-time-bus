@@ -8,11 +8,7 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     environment: prod
-
     steps:
-      - name: checkout
-      - uses: actions/checkout@v2
-      
       - name: Deploy
         env:
           PROJECT_NAME: ${{ github.event.repository.name }}
