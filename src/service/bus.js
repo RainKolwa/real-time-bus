@@ -20,7 +20,7 @@ const getLineStatus = (line) => {
     .then((records) => {
       if (line) {
         const result = records.filter(
-          ({ endName }) => endName.indexOf(`${line}号线`) > -1
+          ({ name }) => name.indexOf(`${line}`) > -1
         );
         return result;
       } else {
@@ -37,7 +37,8 @@ const handleBotCommand = (text, chatId) => {
   if (/^\/bus/.test(text)) {
     // bus command
     let lineNo = text.slice(4);
-    if (!lineNo) {
+    if (!lineNo || ['6', '8', '11'].indexOf(lineNo) === -1) {
+      bot.sendMessage('没有查到班车信息，只有6、8、11号线', chatId)
       return;
     }
     getLineStatus(lineNo).then((result) => {
