@@ -5,12 +5,14 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     environment: prod
 
     steps:
+      - name: checkout
       - uses: actions/checkout@v2
+      
       - name: Deploy
         env:
           PROJECT_NAME: ${{ github.event.repository.name }}
@@ -27,5 +29,5 @@ jobs:
             npm run stop;
             npm start
           host: ${{ secrets.HOST }}
-          user: root
+          user: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}

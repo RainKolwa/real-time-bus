@@ -11,21 +11,19 @@ const getLineStatus = async (request, reply) => {
 };
 
 const hook = async (request) => {
-  request.log.info('received hook');
   request.log.info(request.body);
   const { token } = request.params;
-  // validate token
   const {
     message: { entities, text, chat },
   } = request.body;
   if (entities && entities[0] && entities[0].type === 'bot_command') {
-    // bot command
+    // validate token
     if (token !== process.env.ROBOT_TOKEN) {
-      return { code: -1, message: 'invalid token' };
+      return { code: -1, message: 'Invalid Token' };
     }
     service.handleBotCommand(text, chat.id);
   }
-  return { code: 0 };
+  return { code: 0, message: 'Success' };
 };
 
 module.exports = {
