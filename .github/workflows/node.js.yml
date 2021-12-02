@@ -18,12 +18,9 @@ jobs:
             cd /var/www/
             if cd ${{ env.PROJECT_NAME }}; then git pull; else git clone git@github.com:${{ github.repository }}.git ${{ env.PROJECT_NAME }}; fi
             cd ${{ env.PROJECT_NAME }};
-            git pull origin master;
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";
-            npm i --production;
-            npm run stop;
-            npm start
+            git pull origin master && npm i --production && npm run stop && npm start
           host: ${{ secrets.HOST }}
           user: ${{ secrets.USER }}
           key: ${{ secrets.KEY }}
